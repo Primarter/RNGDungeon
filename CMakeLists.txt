@@ -10,6 +10,25 @@ include(GNUInstallDirs)
 include(FetchContent)
 
 ##############################
+# ImGui lib
+##############################
+
+set(IMGUI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/imgui)
+add_library(imgui STATIC)
+
+target_sources(imgui
+    PRIVATE
+        ${IMGUI_DIR}/imgui_demo.cpp
+        ${IMGUI_DIR}/imgui_draw.cpp
+        ${IMGUI_DIR}/imgui_tables.cpp
+        ${IMGUI_DIR}/imgui_widgets.cpp
+        ${IMGUI_DIR}/imgui.cpp
+)
+
+target_include_directories(imgui PUBLIC ${IMGUI_DIR})
+
+
+##############################
 # RNGDungeon executable
 ##############################
 set(SRC_FILES
@@ -20,21 +39,33 @@ set(SRC_FILES
     ${PROJECT_ROOT}/lib/std/Stopwatch.cpp
 )
 set(RLIMGUI_SRC
-    # ${PROJECT_ROOT}/rlImGui/rlImGui.cpp
+    ${PROJECT_ROOT}/rlImGui/rlImGui.cpp
 )
 
-add_executable(RNGDungeon ${SRC_FILES} ${RLIMGUI_SRC})
-target_include_directories(RNGDungeon PRIVATE ${PROJECT_ROOT}/include/ ${PROJECT_ROOT}/rlImGui/)
+add_executable(RNGDungeon
+    ${SRC_FILES}
+    ${RLIMGUI_SRC}
+)
+target_include_directories(RNGDungeon
+    PRIVATE
+        ${PROJECT_ROOT}/include/
+        ${PROJECT_ROOT}/rlImGui/
+        ${IMGUI_DIR}
+)
 
 if (MSVC)
     target_compile_options(RNGDungeon PRIVATE "/ZM" "/Wall" "/std:c++17")
     set_target_properties(RNGDungeon PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY "../../.."
+        RUNTIME_OUTPUT_DIRECTORY "../../"
     )
 else()
     target_compile_options(RNGDungeon PRIVATE -W -Wall -Wextra -Wno-missing-field-initializers -g3)
+    set_target_properties(RNGDungeon PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "../"
+    )
 endif()
 
+target_link_libraries(RNGDungeon imgui)
 TARGET_LINK_LIBRARIES(RNGDungeon raylib)
 if (NOT raylib_FOUND)
     INCLUDE(FetchContent)
