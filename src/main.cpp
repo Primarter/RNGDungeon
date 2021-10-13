@@ -1,6 +1,3 @@
-#include "raylib.h"
-#include "raymath.h"
-
 #include "stdInclude.hpp"
 #include "lib/Lib.hpp"
 
@@ -9,8 +6,8 @@
 #define MIN_SIZE 20
 #define MAX_SIZE 80
 
-#define WIDTH 800
-#define HEIGHT 800
+#define WIDTH 1280
+#define HEIGHT 720
 
 bool aabb_collision(Rectangle a, Rectangle b) {
   if (a.x < b.x + b.width &&
@@ -26,12 +23,20 @@ void setup(std::array<Rectangle, N> &cells)
 {
     InitWindow(WIDTH, HEIGHT, "RNGDungeon");
     SetTargetFPS(60);
+    rlImGuiSetup(true);
 }
 
 void draw(void)
 {
 BeginDrawing();
-    ClearBackground(RAYWHITE);
+rlImGuiBegin();
+
+    ClearBackground(DARKGRAY);
+
+    bool open = true;
+    ImGui::ShowDemoWindow(&open);
+
+rlImGuiEnd();
 EndDrawing();
 }
 
@@ -46,7 +51,8 @@ int main(int argc, char const *argv[])
     {
         draw();
     }
-    CloseWindow();
 
+    rlImGuiShutdown();
+    CloseWindow();
     return 0;
 }

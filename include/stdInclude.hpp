@@ -25,11 +25,13 @@
 #include <condition_variable>
 #include <typeinfo>
 #include <set>
-#include <raylib.h>
-#include <raymath.h>
 #include <filesystem>
 #include <bitset>
 #include <array>
+#include <raylib.h>
+#include <raymath.h>
+#include "imgui.h"
+#include "rlImGui.h"
 
 #ifndef WIN32
 	#define UNUSED __attribute__((unused))
