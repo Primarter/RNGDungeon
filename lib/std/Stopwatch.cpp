@@ -31,6 +31,7 @@ namespace lib
         return this->_is_running;
     }
 
+    // Gets elapsed time as seconds
     double Stopwatch::getElapsedTime(void) const
     {
         if (this->_is_running) {

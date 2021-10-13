@@ -3,3 +3,5 @@ RNGDungeon
 .vscode
 build
 imgui.ini
+test.cpp
+a.out

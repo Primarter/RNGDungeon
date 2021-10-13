@@ -1,55 +1,18 @@
 #include "stdInclude.hpp"
 #include "lib/Lib.hpp"
+#include "CellSystem.hpp"
+#include "Generator.hpp"
 
-#define N 40
-#define DIST_FROM_CENTER 40
-#define MIN_SIZE 20
-#define MAX_SIZE 80
-
-#define WIDTH 1280
-#define HEIGHT 720
-
-bool aabb_collision(Rectangle a, Rectangle b) {
-  if (a.x < b.x + b.width &&
-      a.x + a.width > b.x &&
-      a.y < b.y + b.height &&
-      a.height + a.y > b.y) {
-    return true;
-  }
-  return false;
-}
-
-void setup(std::array<Rectangle, N> &cells)
+int main(void)
 {
-    InitWindow(WIDTH, HEIGHT, "RNGDungeon");
-    SetTargetFPS(60);
-    rlImGuiSetup(true);
-}
+    rngd::Generator generator;
 
-void draw(void)
-{
-BeginDrawing();
-rlImGuiBegin();
-
-    ClearBackground(DARKGRAY);
-
-    bool open = true;
-    ImGui::ShowDemoWindow(&open);
-
-rlImGuiEnd();
-EndDrawing();
-}
-
-int main(int argc, char const *argv[])
-{
-    std::cout << "Hello World!" << std::endl;
-    std::array<Rectangle, N> cells;
-
-    setup(cells);
+    generator.setup();
 
     while (!WindowShouldClose())
     {
-        draw();
+        generator.tick();
+        generator.draw();
     }
 
     rlImGuiShutdown();

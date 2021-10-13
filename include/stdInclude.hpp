@@ -28,10 +28,21 @@
 #include <filesystem>
 #include <bitset>
 #include <array>
+#include <random>
 #include <raylib.h>
 #include <raymath.h>
 #include "imgui.h"
 #include "rlImGui.h"
+
+#define N 40
+#define DIST_FROM_CENTER 50
+#define MIN_SIZE 20
+#define MAX_SIZE 80
+
+#define WIDTH 1280
+#define HEIGHT 720
+
+#define RANGE_RAND(nb, min, max) nb % (max - min) + min
 
 #ifndef WIN32
 	#define UNUSED __attribute__((unused))

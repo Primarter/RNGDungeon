@@ -32,8 +32,10 @@ target_include_directories(imgui PUBLIC ${IMGUI_DIR})
 # RNGDungeon executable
 ##############################
 set(SRC_FILES
-    ${PROJECT_ROOT}/src/main.cpp
-    ${PROJECT_ROOT}/lib/Lib.cpp
+${PROJECT_ROOT}/src/main.cpp
+${PROJECT_ROOT}/src/CellSystem.cpp
+${PROJECT_ROOT}/src/Generator.cpp
+${PROJECT_ROOT}/lib/Lib.cpp
     ${PROJECT_ROOT}/lib/std/DLLoader.cpp
     ${PROJECT_ROOT}/lib/std/Exception.cpp
     ${PROJECT_ROOT}/lib/std/Stopwatch.cpp
@@ -66,17 +68,17 @@ else()
 endif()
 
 target_link_libraries(RNGDungeon imgui)
-TARGET_LINK_LIBRARIES(RNGDungeon raylib)
+target_link_libraries(RNGDungeon raylib)
 if (NOT raylib_FOUND)
-    INCLUDE(FetchContent)
+    include(FetchContent)
     FetchContent_Declare(raylib URL https://github.com/raysan5/raylib/archive/master.tar.gz)
     FetchContent_GetProperties(raylib)
     if (NOT raylib_POPULATED)
-        SET(FETCHCONTENT_QUIET NO)
+        set(FETCHCONTENT_QUIET NO)
         FetchContent_Populate(raylib)
-        SET(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-        ADD_SUBDIRECTORY(${raylib_SOURCE_DIR} ${raylib_BINARY_DIR})
-        SET(raylib_FOUND TRUE)
+        set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+        add_subdirectory(${raylib_SOURCE_DIR} ${raylib_BINARY_DIR})
+        set(raylib_FOUND TRUE)
     endif()
 endif()
 
