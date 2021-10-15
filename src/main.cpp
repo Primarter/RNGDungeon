@@ -1,6 +1,5 @@
 #include "stdInclude.hpp"
 #include "lib/Lib.hpp"
-#include "CellSystem.hpp"
 #include "Generator.hpp"
 
 int main(void)
@@ -11,7 +10,7 @@ int main(void)
 
     while (!WindowShouldClose())
     {
-        generator.tick();
+        generator.update();
         generator.draw();
     }
 

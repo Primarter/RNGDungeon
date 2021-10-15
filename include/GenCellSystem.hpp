@@ -6,19 +6,23 @@
 
 namespace rngd
 {
-    class CellSystem
+    class GenCellSystem
     {
         private:
             std::array<Rectangle, N> cells;
+            std::array<bool, N> isMainRoom;
             size_t seed = 0;
-            lib::Stopwatch sw;
         public:
             static const size_t RANDOM_SEED = 0;
             static constexpr float STEERING_STRENGTH = 1;
-            CellSystem(void) = default;
-            ~CellSystem(void) = default;
+            bool separated = false;
+            GenCellSystem(void) = default;
+            ~GenCellSystem(void) = default;
             void setup(size_t seed);
-            void tick(void);
+            void reset(size_t seed);
+            void separate(void);
+            void createGraph(void);
+            void updateGraph(void);
             std::array<Rectangle, N> getCells(void) const;
             bool aabbCollision(Rectangle a, Rectangle b) const;
             Vector2 cellCenter(const Rectangle &cell) const;

@@ -1,8 +1,8 @@
-#include "CellSystem.hpp"
+#include "GenCellSystem.hpp"
 
 namespace rngd
 {
-    bool CellSystem::aabbCollision(Rectangle a, Rectangle b) const
+    bool GenCellSystem::aabbCollision(Rectangle a, Rectangle b) const
     {
         if (a.x < b.x + b.width &&
             a.x + a.width > b.x &&
@@ -13,18 +13,18 @@ namespace rngd
         return false;
     }
 
-    Vector2 CellSystem::cellCenter(const Rectangle &cell) const
+    Vector2 GenCellSystem::cellCenter(const Rectangle &cell) const
     {
         return (Vector2Add({cell.x, cell.y}, Vector2Divide({cell.width, cell.height}, {2,2})));
     }
 
-    void CellSystem::setup(size_t _seed)
+    void GenCellSystem::setup(size_t _seed UNUSED)
     {
-        sw.start();
-        // if (_seed == CellSystem::RANDOM_SEED)
+        // if (_seed == GenCellSystem::RANDOM_SEED)
         //     this->seed = std::chrono::system_clock::now().time_since_epoch().count();
         // std::minstd_rand0 generator(seed);
 
+        isMainRoom.fill(false);
         for (size_t i = 0; i < N; ++i) {
             this->cells[i] = {
                 float(RANGE_RAND(rand(), -DIST_FROM_CENTER, DIST_FROM_CENTER)) + WIDTH / 2,
@@ -35,17 +35,26 @@ namespace rngd
         }
     }
 
-    void CellSystem::tick(void)
+    void GenCellSystem::reset(size_t _seed)
     {
+        setup(_seed);
+        this->separated = false;
+    }
+
+    void GenCellSystem::separate(void)
+    {
+        this->separated = true;
+
         for (size_t i = 0; i < N; ++i) {
             Rectangle &rectA = cells[i];
             for (size_t j = 0; j < N; ++j) {
                 if (i == j) continue;
                 Rectangle &rectB = cells[j];
                 if (aabbCollision(rectA, rectB)) {
+                    this->separated = false;
                     Vector2 dir = Vector2Subtract(cellCenter(rectA), cellCenter(rectB));
                     dir = Vector2Normalize(dir);
-                    dir = Vector2Multiply(dir, {CellSystem::STEERING_STRENGTH, CellSystem::STEERING_STRENGTH});
+                    dir = Vector2Multiply(dir, {GenCellSystem::STEERING_STRENGTH, GenCellSystem::STEERING_STRENGTH});
 
                     rectA.x += dir.x;
                     rectA.y += dir.y;
@@ -53,21 +62,44 @@ namespace rngd
                     rectB.y -= dir.y;
                 }
             }
+            // If optimisation is needed, uncomment this and comment the draw call
             // DrawRectangleRec(rectA, ORANGE);
             // DrawRectangleLinesEx(rectA, 1, BLACK);
         }
+        if (this->separated)
+            this->createGraph();
     }
 
-    void CellSystem::draw(void) const
+    void GenCellSystem::createGraph(void)
+    {
+        float mean = 0.0;
+        for (auto &&it : cells)
+            mean += it.height*it.width;
+        mean /= cells.size();
+
+        for (size_t i = 0; i < N; i++) {
+            if (cells[i].height * cells[i].width >= 1.25*mean)
+                isMainRoom[i] = true;
+        }
+    }
+
+    void GenCellSystem::updateGraph(void)
+    {
+    }
+
+    void GenCellSystem::draw(void) const
     {
         for (size_t i = 0; i < N; ++i) {
             const Rectangle &r = this->cells[i];
-            DrawRectangleRec(r, ORANGE);
+            if (isMainRoom[i])
+                DrawRectangleRec(r, ORANGE);
+            else
+                DrawRectangleRec(r, BLUE);
             DrawRectangleLinesEx(r, 1, BLACK);
         }
     }
 
-    std::array<Rectangle, N> CellSystem::getCells(void) const
+    std::array<Rectangle, N> GenCellSystem::getCells(void) const
     {
         return this->cells;
     }

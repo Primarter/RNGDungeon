@@ -1,17 +1,20 @@
 #include "stdInclude.hpp"
-#include "CellSystem.hpp"
+#include "GenCellSystem.hpp"
 
 namespace rngd
 {
     class Generator
     {
         private:
-            CellSystem cells;
+            GenCellSystem genCellSys;
+            void drawImGui(void);
+            void drawGen(void);
         public:
             Generator(void) = default;
             ~Generator(void) = default;
             void setup(void);
-            void tick(void);
+            void update(void);
             void draw(void);
+            void reset(void);
     };
 } // namespace rngd

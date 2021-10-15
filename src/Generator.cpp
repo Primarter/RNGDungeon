@@ -7,12 +7,20 @@ namespace rngd
         InitWindow(WIDTH, HEIGHT, "RNGDungeon");
         SetTargetFPS(60);
         rlImGuiSetup(true);
-        cells.setup(CellSystem::RANDOM_SEED);
+        genCellSys.setup(GenCellSystem::RANDOM_SEED);
     }
 
-    void Generator::tick(void)
+    void Generator::reset(void)
     {
-        cells.tick();
+        genCellSys.reset(GenCellSystem::RANDOM_SEED);
+    }
+
+    void Generator::update(void)
+    {
+        if (!genCellSys.separated)
+            genCellSys.separate();
+        else
+            genCellSys.updateGraph();
     }
 
     void Generator::draw(void)
@@ -20,10 +28,26 @@ namespace rngd
         BeginDrawing();
         rlImGuiBegin();
 
-        ClearBackground(DARKGRAY);
-        cells.draw();
+        this->drawImGui();
+        this->drawGen();
 
         rlImGuiEnd();
         EndDrawing();
+    }
+
+    void Generator::drawImGui(void)
+    {
+        bool open = false;
+        ImGui::Begin("Settings", &open);
+        if (ImGui::Button("Restart"))
+            this->reset();
+
+        ImGui::End();
+    }
+
+    void Generator::drawGen(void)
+    {
+        ClearBackground(DARKGRAY);
+        genCellSys.draw();
     }
 } // namespace rngd
