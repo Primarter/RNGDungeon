@@ -32,13 +32,14 @@ target_include_directories(imgui PUBLIC ${IMGUI_DIR})
 # RNGDungeon executable
 ##############################
 set(SRC_FILES
-${PROJECT_ROOT}/src/main.cpp
-${PROJECT_ROOT}/src/GenCellSystem.cpp
-${PROJECT_ROOT}/src/Generator.cpp
-${PROJECT_ROOT}/lib/Lib.cpp
+    ${PROJECT_ROOT}/src/main.cpp
+    ${PROJECT_ROOT}/src/GenCellSystem.cpp
+    ${PROJECT_ROOT}/src/Generator.cpp
+    ${PROJECT_ROOT}/lib/Lib.cpp
     ${PROJECT_ROOT}/lib/std/DLLoader.cpp
     ${PROJECT_ROOT}/lib/std/Exception.cpp
     ${PROJECT_ROOT}/lib/std/Stopwatch.cpp
+    ${PROJECT_ROOT}/triangulate.cpp
 )
 set(RLIMGUI_SRC
     ${PROJECT_ROOT}/rlImGui/rlImGui.cpp

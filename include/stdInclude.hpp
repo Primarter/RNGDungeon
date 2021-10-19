@@ -42,7 +42,7 @@
 #define WIDTH 1280
 #define HEIGHT 720
 
-#define RANGE_RAND(nb, min, max) nb % (max - min) + min
+#define RANGE_RAND(min, max) rand() % (max - min) + min
 
 #ifndef WIN32
 	#define UNUSED __attribute__((unused))
@@ -54,3 +54,27 @@ typedef unsigned int id_t;
 
 template <typename T>
 using ref = std::reference_wrapper<T>;
+
+#define EPSILON 0.001
+
+struct ITriangle {
+    int p1,p2,p3;
+};
+
+struct IEdge {
+    int p1,p2;
+};
+
+typedef Vector2 Point;
+
+struct Triangle {
+    Point p1;
+    Point p2;
+    Point p3;
+};
+
+struct Circle {
+    float x;
+    float y;
+    float r;
+};

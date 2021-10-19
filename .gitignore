@@ -1,7 +1,9 @@
-ref.js
+*.js
 RNGDungeon
 .vscode
 build
 imgui.ini
 test.cpp
 a.out
+Delaunay-*
+triangulate*

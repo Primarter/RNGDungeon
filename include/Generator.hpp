@@ -16,5 +16,6 @@ namespace rngd
             void update(void);
             void draw(void);
             void reset(void);
+            void stop(void);
     };
 } // namespace rngd

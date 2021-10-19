@@ -10,6 +10,12 @@ namespace rngd
         genCellSys.setup(GenCellSystem::RANDOM_SEED);
     }
 
+    void Generator::stop(void)
+    {
+        rlImGuiShutdown();
+        CloseWindow();
+    }
+
     void Generator::reset(void)
     {
         genCellSys.reset(GenCellSystem::RANDOM_SEED);

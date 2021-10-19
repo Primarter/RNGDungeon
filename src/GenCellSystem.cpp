@@ -27,10 +27,10 @@ namespace rngd
         isMainRoom.fill(false);
         for (size_t i = 0; i < N; ++i) {
             this->cells[i] = {
-                float(RANGE_RAND(rand(), -DIST_FROM_CENTER, DIST_FROM_CENTER)) + WIDTH / 2,
-                float(RANGE_RAND(rand(), -DIST_FROM_CENTER, DIST_FROM_CENTER)) + HEIGHT / 2,
-                float(RANGE_RAND(rand(), MIN_SIZE, MAX_SIZE)),
-                float(RANGE_RAND(rand(), MIN_SIZE, MAX_SIZE))
+                float(RANGE_RAND(-DIST_FROM_CENTER, DIST_FROM_CENTER)) + WIDTH / 2,
+                float(RANGE_RAND(-DIST_FROM_CENTER, DIST_FROM_CENTER)) + HEIGHT / 2,
+                float(RANGE_RAND(MIN_SIZE, MAX_SIZE)),
+                float(RANGE_RAND(MIN_SIZE, MAX_SIZE))
             };
         }
     }
