@@ -78,3 +78,6 @@ struct Circle {
     float y;
     float r;
 };
+
+void drawTrianglesFromIndices(const std::vector<Point> &pts, const std::vector<ITriangle> &triIndices);
+std::vector<ITriangle> Triangulate(std::vector<Point> &pxyz);

@@ -11,6 +11,8 @@ namespace rngd
         private:
             std::array<Rectangle, N> cells;
             std::array<bool, N> isMainRoom;
+            std::vector<Point> roomCenters;
+            std::vector<ITriangle> graphIndices;
             size_t seed = 0;
         public:
             static const size_t RANDOM_SEED = 0;

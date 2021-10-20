@@ -2,9 +2,6 @@
 #include "lib/Lib.hpp"
 #include "Generator.hpp"
 
-void drawTrianglesFromIndices(std::vector<Point> &pts, std::vector<ITriangle> &triIndices);
-std::vector<ITriangle> Triangulate(std::vector<Point> &pxyz);
-
 std::ostream &operator<<(std::ostream &lhs, Point &pt)
 {
     if (pt.x < 300 || pt.y < 100 || pt.x > 1000 || pt.y > 700)
@@ -42,12 +39,12 @@ int main(void)
 
     while (!WindowShouldClose())
     {
-        BeginDrawing();
-        ClearBackground(BLACK);
-        drawTrianglesFromIndices(pts, triIndices);
-        EndDrawing();
-        // generator.update();
-        // generator.draw();
+        // BeginDrawing();
+        // ClearBackground(BLACK);
+        // drawTrianglesFromIndices(pts, triIndices);
+        // EndDrawing();
+        generator.update();
+        generator.draw();
     }
 
     generator.stop();
