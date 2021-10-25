@@ -35,6 +35,7 @@ set(SRC_FILES
     ${PROJECT_ROOT}/src/main.cpp
     ${PROJECT_ROOT}/src/GenCellSystem.cpp
     ${PROJECT_ROOT}/src/Generator.cpp
+    ${PROJECT_ROOT}/src/MinimumSpanningTree.cpp
     ${PROJECT_ROOT}/src/Triangulate.cpp
     ${PROJECT_ROOT}/lib/Lib.cpp
     ${PROJECT_ROOT}/lib/std/DLLoader.cpp

@@ -57,15 +57,29 @@ using ref = std::reference_wrapper<T>;
 
 #define EPSILON 0.001
 
+typedef Vector2 Point;
+
+struct IEdge {
+    int p1,p2;
+    float weight;
+    bool operator==(const IEdge &rhs) {
+    return ((this->p1 == rhs.p1 && this->p2 == rhs.p2) || (this->p1 == rhs.p2 && this->p2 == rhs.p1));
+}
+};
+
 struct ITriangle {
     int p1,p2,p3;
 };
 
-struct IEdge {
-    int p1,p2;
-};
+void drawTrianglesFromIndices(const std::vector<Point> &pts, const std::vector<ITriangle> &triIndices);
+std::vector<ITriangle> Triangulate(std::vector<Point> &pxyz);
 
-typedef Vector2 Point;
+
+
+std::vector<IEdge> Kruskal(std::vector<Point> &points, std::vector<IEdge> &edges);
+std::vector<IEdge> getEdges(const std::vector<Point> &pts, const std::vector<ITriangle> &triIndices);
+void drawEdgesFromIndices(const std::vector<Point> &pts, const std::vector<IEdge> &edges);
+
 
 struct Triangle {
     Point p1;
@@ -78,6 +92,3 @@ struct Circle {
     float y;
     float r;
 };
-
-void drawTrianglesFromIndices(const std::vector<Point> &pts, const std::vector<ITriangle> &triIndices);
-std::vector<ITriangle> Triangulate(std::vector<Point> &pxyz);

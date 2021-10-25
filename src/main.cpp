@@ -35,7 +35,7 @@ int main(void)
     }
     std::sort(pts.begin(), pts.end(), [](const Point &a, const Point &b) {return a.x < b.x;});
 
-    std::vector<ITriangle> triIndices = Triangulate(pts);
+    // std::vector<Delaunay::ITriangle> triIndices = Triangulate(pts);
 
     while (!WindowShouldClose())
     {

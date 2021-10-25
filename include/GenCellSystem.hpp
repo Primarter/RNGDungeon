@@ -13,6 +13,7 @@ namespace rngd
             std::array<bool, N> isMainRoom;
             std::vector<Point> roomCenters;
             std::vector<ITriangle> graphIndices;
+            std::vector<IEdge> graphEdges;
             size_t seed = 0;
         public:
             static const size_t RANDOM_SEED = 0;

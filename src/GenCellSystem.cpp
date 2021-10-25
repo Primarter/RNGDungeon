@@ -87,7 +87,9 @@ namespace rngd
                 });
             }
         }
-        graphIndices = Triangulate(this->roomCenters);
+        graphIndices = Triangulate(roomCenters);
+        graphEdges = getEdges(roomCenters, graphIndices);
+        graphEdges = Kruskal(roomCenters, graphEdges);
     }
 
     void GenCellSystem::updateGraph(void)
@@ -99,13 +101,18 @@ namespace rngd
         for (size_t i = 0; i < N; ++i) {
             const Rectangle &r = this->cells[i];
             if (isMainRoom[i])
-                DrawRectangleRec(r, ORANGE);
+                DrawRectangleRec(r, RED);
             else
-                DrawRectangleRec(r, BLUE);
+                DrawRectangleRec(r, DARKBLUE);
             DrawRectangleLinesEx(r, 1, BLACK);
         }
-        if (this->separated)
+        if (this->separated) {
             drawTrianglesFromIndices(this->roomCenters, this->graphIndices);
+            drawEdgesFromIndices(roomCenters, graphEdges);
+            for (auto &&pt : roomCenters) {
+                DrawCircleV(pt, 5, GREEN);
+            }
+        }
     }
 
     std::array<Rectangle, N> GenCellSystem::getCells(void) const
