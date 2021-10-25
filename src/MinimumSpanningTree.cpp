@@ -20,29 +20,28 @@ std::vector<IEdge> getEdges(const std::vector<Point> &pts, const std::vector<ITr
 void drawEdgesFromIndices(const std::vector<Point> &pts, const std::vector<IEdge> &edges)
 {
     for (auto &&e : edges) {
-        DrawLineV(pts[e.p1], pts[e.p2], PURPLE);
-        DrawCircleV(pts[e.p1], 5, PURPLE);
-        DrawCircleV(pts[e.p2], 5, PURPLE);
+        DrawLineV(pts[e.p1], pts[e.p2], DARKGREEN);
+        DrawCircleV(pts[e.p1], 5, DARKGREEN);
+        DrawCircleV(pts[e.p2], 5, DARKGREEN);
     }
 }
 
 std::vector<IEdge> Kruskal(std::vector<Point> &points, std::vector<IEdge> &edges)
 {
-    std::vector<int> setIds;
+    std::vector<int> treeIds;
     std::vector<IEdge> res;
     for (size_t i = 0; i < points.size(); i++) {
-        setIds.push_back(i);
+        treeIds.push_back(i);
     }
     std::sort(edges.begin(), edges.end(), [](IEdge &e1, IEdge &e2) { return e1.weight < e2.weight; });
-    for (auto &&e : edges) {
-        std::cout << "edge { " << e.weight << ", " << e.p1 << ", " << e.p2 << " }" << std::endl;
-    }
-    for (auto it = edges.begin(); it != edges.end() && res.size() <= points.size() - 1; it++) {
-        if (setIds[it->p1] != setIds[it->p2]) {
+    for (auto it = edges.begin(); it != edges.end() && res.size() < points.size() - 1; it++) {
+        if (treeIds[it->p1] != treeIds[it->p2]) {
             res.push_back(*it);
-            for (auto &&id : setIds)
-                if (id == setIds[it->p2])
-                    id = setIds[it->p1];
+            int treeIdToMerge = treeIds[it->p2];
+            int idToMergeTo = treeIds[it->p1];
+            for (size_t i = 0; i < treeIds.size(); i++)
+                if (treeIds[i] == treeIdToMerge)
+                    treeIds[i] = idToMergeTo;
         }
     }
     return res;
