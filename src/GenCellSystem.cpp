@@ -107,7 +107,7 @@ namespace rngd
             DrawRectangleLinesEx(r, 1, BLACK);
         }
         if (this->separated) {
-            drawTrianglesFromIndices(this->roomCenters, this->graphIndices);
+            // drawTrianglesFromIndices(this->roomCenters, this->graphIndices);
             drawEdgesFromIndices(roomCenters, graphEdges);
             for (auto &&pt : roomCenters) {
                 DrawCircleV(pt, 5, GREEN);
