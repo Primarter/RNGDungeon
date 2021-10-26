@@ -110,7 +110,7 @@ namespace rngd
             drawTrianglesFromIndices(this->roomCenters, this->graphIndices);
             drawEdgesFromIndices(roomCenters, graphEdges);
             for (auto &&pt : roomCenters) {
-                DrawCircleV(pt, 5, GREEN);
+                DrawCircleV(pt, 5, PURPLE);
             }
         }
     }

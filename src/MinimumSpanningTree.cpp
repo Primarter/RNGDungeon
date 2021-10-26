@@ -20,9 +20,9 @@ std::vector<IEdge> getEdges(const std::vector<Point> &pts, const std::vector<ITr
 void drawEdgesFromIndices(const std::vector<Point> &pts, const std::vector<IEdge> &edges)
 {
     for (auto &&e : edges) {
-        DrawLineV(pts[e.p1], pts[e.p2], DARKGREEN);
-        DrawCircleV(pts[e.p1], 5, DARKGREEN);
-        DrawCircleV(pts[e.p2], 5, DARKGREEN);
+        DrawLineV(pts[e.p1], pts[e.p2], PURPLE);
+        DrawCircleV(pts[e.p1], 5, PURPLE);
+        DrawCircleV(pts[e.p2], 5, PURPLE);
     }
 }
 

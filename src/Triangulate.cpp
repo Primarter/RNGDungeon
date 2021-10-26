@@ -48,7 +48,7 @@ void drawTrianglesFromIndices(const std::vector<Point> &pts, const std::vector<I
     for (auto &&t : triIndices) {
         if (t.p1 == 0 && t.p2 == 0 && t.p3 == 0)
             break;
-        DrawTriangleLines(pts[t.p1], pts[t.p2], pts[t.p3], GREEN);
+        DrawTriangleLines(pts[t.p1], pts[t.p2], pts[t.p3], DARKGREEN);
     }
 }
 

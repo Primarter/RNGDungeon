@@ -25,24 +25,11 @@ int main(void)
     rngd::Generator generator;
 
     generator.setup();
-    std::vector<Point> pts;
 
-    for (int i = 0; i < NB_POINTS; i++) {
-        Vector2 p = randInCircle();
-        pts.push_back({
-            Vector2Add(Vector2Multiply(p, {(float)(rand() % 300), (float)(rand() % 300)}), {WIDTH/2, HEIGHT/2})
-        });
-    }
-    std::sort(pts.begin(), pts.end(), [](const Point &a, const Point &b) {return a.x < b.x;});
-
-    // std::vector<Delaunay::ITriangle> triIndices = Triangulate(pts);
+    rlSetLineWidth(3);
 
     while (!WindowShouldClose())
     {
-        // BeginDrawing();
-        // ClearBackground(BLACK);
-        // drawTrianglesFromIndices(pts, triIndices);
-        // EndDrawing();
         generator.update();
         generator.draw();
     }

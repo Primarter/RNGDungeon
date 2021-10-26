@@ -29,8 +29,9 @@
 #include <bitset>
 #include <array>
 #include <random>
-#include <raylib.h>
-#include <raymath.h>
+#include "raylib.h"
+#include "rlgl.h"
+#include "raymath.h"
 #include "imgui.h"
 #include "rlImGui.h"
 
