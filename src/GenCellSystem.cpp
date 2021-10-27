@@ -88,8 +88,8 @@ namespace rngd
             }
         }
         graphIndices = Triangulate(roomCenters);
-        graphEdges = getEdges(roomCenters, graphIndices);
-        graphEdges = Kruskal(roomCenters, graphEdges);
+        totalEdges = getEdges(roomCenters, graphIndices);
+        graphEdges = Kruskal(roomCenters, totalEdges);
     }
 
     void GenCellSystem::updateGraph(void)

@@ -14,6 +14,7 @@ namespace rngd
             std::vector<Point> roomCenters;
             std::vector<ITriangle> graphIndices;
             std::vector<IEdge> graphEdges;
+            std::vector<IEdge> totalEdges;
             size_t seed = 0;
         public:
             static const size_t RANDOM_SEED = 0;

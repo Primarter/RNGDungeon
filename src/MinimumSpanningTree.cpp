@@ -44,6 +44,14 @@ std::vector<IEdge> Kruskal(std::vector<Point> &points, std::vector<IEdge> &edges
                     treeIds[i] = idToMergeTo;
         }
     }
+    size_t added = 0;
+    for (auto &&it = edges.end() - 1; it != edges.begin() && added < (edges.size() / 10); it--) {
+        std::cout << it->p1 << " " << it->p2 << " " << it->weight << std::endl;
+        if (std::find(res.begin(), res.end(), *it) == res.end()) {
+            res.push_back(*it);
+            added++;
+        }
+    }
     return res;
 }
 
