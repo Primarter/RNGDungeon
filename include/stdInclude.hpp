@@ -64,8 +64,8 @@ struct IEdge {
     int p1,p2;
     float weight;
     bool operator==(const IEdge &rhs) {
-    return ((this->p1 == rhs.p1 && this->p2 == rhs.p2) || (this->p1 == rhs.p2 && this->p2 == rhs.p1));
-}
+        return ((this->p1 == rhs.p1 && this->p2 == rhs.p2) || (this->p1 == rhs.p2 && this->p2 == rhs.p1));
+    }
 };
 
 struct ITriangle {
@@ -77,16 +77,28 @@ std::vector<ITriangle> Triangulate(std::vector<Point> &pxyz);
 
 
 
-std::vector<IEdge> Kruskal(std::vector<Point> &points, std::vector<IEdge> &edges);
+std::vector<IEdge> Kruskal(std::vector<Point> &points, std::vector<IEdge> edges);
 std::vector<IEdge> getEdges(const std::vector<Point> &pts, const std::vector<ITriangle> &triIndices);
 void drawEdgesFromIndices(const std::vector<Point> &pts, const std::vector<IEdge> &edges);
-
 
 struct Triangle {
     Point p1;
     Point p2;
     Point p3;
 };
+
+struct Edge {
+    Point p1, p2;
+};
+
+struct Corridor {
+    Corridor(Edge e);
+    Point p1, p2, p3;
+};
+
+std::vector<Edge> getEdgeVal(std::vector<Point> &points, std::vector<IEdge> iedges);
+std::vector<Corridor> getCorridors(std::vector<Edge> edges);
+void drawCorridors(std::vector<Corridor> corridors);
 
 struct Circle {
     float x;

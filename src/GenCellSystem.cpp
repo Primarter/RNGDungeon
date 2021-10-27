@@ -88,8 +88,9 @@ namespace rngd
             }
         }
         graphIndices = Triangulate(roomCenters);
-        totalEdges = getEdges(roomCenters, graphIndices);
+        auto totalEdges = getEdges(roomCenters, graphIndices);
         graphEdges = Kruskal(roomCenters, totalEdges);
+        corridors = getCorridors(getEdgeVal(roomCenters, graphEdges));
     }
 
     void GenCellSystem::updateGraph(void)
@@ -107,11 +108,12 @@ namespace rngd
             DrawRectangleLinesEx(r, 1, BLACK);
         }
         if (this->separated) {
-            drawTrianglesFromIndices(this->roomCenters, this->graphIndices);
+            // drawTrianglesFromIndices(this->roomCenters, this->graphIndices);
             drawEdgesFromIndices(roomCenters, graphEdges);
             for (auto &&pt : roomCenters) {
                 DrawCircleV(pt, 5, PURPLE);
             }
+            drawCorridors(corridors);
         }
     }
 

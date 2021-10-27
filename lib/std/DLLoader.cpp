@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2020
-** B-OOP-400-MPL-4-1-arcade-alec.ferrari
-** File description:
-** DLLoader.cpp
-*/
-
 #include "lib/std/DLLoader.hpp"
 
 //void close_dl(void) __attribute__((destructor));

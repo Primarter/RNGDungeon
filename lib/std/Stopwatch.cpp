@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2020
-** B-OOP-400-MPL-4-1-arcade-alec.ferrari
-** File description:
-** Stopwatch.cpp
-*/
-
 #include "lib/std/Stopwatch.hpp"
 
 namespace lib

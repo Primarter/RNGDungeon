@@ -26,7 +26,7 @@ void drawEdgesFromIndices(const std::vector<Point> &pts, const std::vector<IEdge
     }
 }
 
-std::vector<IEdge> Kruskal(std::vector<Point> &points, std::vector<IEdge> &edges)
+std::vector<IEdge> Kruskal(std::vector<Point> &points, std::vector<IEdge> edges)
 {
     std::vector<int> treeIds;
     std::vector<IEdge> res;

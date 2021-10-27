@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2020
-** B-CCP-400-MPL-4-1-theplazza-alec.ferrari
-** File description:
-** Exception.cpp
-*/
-
 #include "lib/std/Exception.hpp"
 
 namespace lib
