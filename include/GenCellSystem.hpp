@@ -25,6 +25,7 @@ namespace rngd
             void setup(size_t seed);
             void reset(size_t seed);
             void separate(void);
+            void roundPositions(void);
             void createGraph(void);
             void updateGraph(void);
             std::array<Rectangle, N> getCells(void) const;

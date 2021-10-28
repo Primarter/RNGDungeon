@@ -17,5 +17,6 @@ namespace rngd
             void draw(void);
             void reset(void);
             void stop(void);
+            void exportToFile(void);
     };
 } // namespace rngd

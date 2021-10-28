@@ -29,6 +29,10 @@ namespace rngd
             genCellSys.updateGraph();
     }
 
+    void Generator::exportToFile(void) {
+
+    }
+
     void Generator::draw(void)
     {
         BeginDrawing();
@@ -47,6 +51,8 @@ namespace rngd
         ImGui::Begin("Settings", &open);
         if (ImGui::Button("Restart"))
             this->reset();
+        if (ImGui::Button("Export"))
+            this->exportToFile();
 
         ImGui::End();
     }

@@ -29,8 +29,8 @@ namespace rngd
             this->cells[i] = {
                 float(RANGE_RAND(-DIST_FROM_CENTER, DIST_FROM_CENTER)) + WIDTH / 2,
                 float(RANGE_RAND(-DIST_FROM_CENTER, DIST_FROM_CENTER)) + HEIGHT / 2,
-                float(RANGE_RAND(MIN_SIZE, MAX_SIZE)),
-                float(RANGE_RAND(MIN_SIZE, MAX_SIZE))
+                float(RANGE_RAND(MIN_SIZE, MAX_SIZE)/GRIDRES)*GRIDRES,
+                float(RANGE_RAND(MIN_SIZE, MAX_SIZE)/GRIDRES)*GRIDRES
             };
         }
     }
@@ -66,8 +66,17 @@ namespace rngd
             // DrawRectangleRec(rectA, ORANGE);
             // DrawRectangleLinesEx(rectA, 1, BLACK);
         }
-        if (this->separated)
+        if (this->separated) {
+            this->roundPositions();
             this->createGraph();
+        }
+    }
+
+    void GenCellSystem::roundPositions(void) {
+        for (auto &&cell : this->cells) {
+            cell.x = round(cell.x/GRIDRES)*GRIDRES;
+            cell.y = round(cell.y/GRIDRES)*GRIDRES;
+        }
     }
 
     void GenCellSystem::createGraph(void)
@@ -99,6 +108,10 @@ namespace rngd
 
     void GenCellSystem::draw(void) const
     {
+        for (size_t i = 0; i < WIDTH; i += GRIDRES) {
+            DrawLine(i, 0, i, HEIGHT, {120, 120, 120, 120});
+            DrawLine(0, i, WIDTH, i, {120, 120, 120, 120});
+        }
         for (size_t i = 0; i < N; ++i) {
             const Rectangle &r = this->cells[i];
             if (isMainRoom[i])
@@ -108,7 +121,6 @@ namespace rngd
             DrawRectangleLinesEx(r, 1, BLACK);
         }
         if (this->separated) {
-            // drawTrianglesFromIndices(this->roomCenters, this->graphIndices);
             drawEdgesFromIndices(roomCenters, graphEdges);
             for (auto &&pt : roomCenters) {
                 DrawCircleV(pt, 5, PURPLE);

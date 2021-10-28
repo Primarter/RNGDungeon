@@ -43,7 +43,7 @@
 #define WIDTH 1280
 #define HEIGHT 720
 
-#define RANGE_RAND(min, max) rand() % (max - min) + min
+#define RANGE_RAND(min, max) (rand() % (max - min) + min)
 
 #ifndef WIN32
 	#define UNUSED __attribute__((unused))
@@ -57,6 +57,8 @@ template <typename T>
 using ref = std::reference_wrapper<T>;
 
 #define EPSILON 0.001
+
+#define GRIDRES 8
 
 typedef Vector2 Point;
 
