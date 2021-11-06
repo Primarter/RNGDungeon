@@ -133,4 +133,54 @@ namespace rngd
     {
         return this->cells;
     }
+
+    Grid GenCellSystem::exportGrid(void) const
+    {
+        int minX = INT32_MAX, minY = INT32_MAX, maxX = INT32_MIN, maxY = INT32_MIN;
+        for (auto &&room : this->cells) {
+            // std::cout << room.x << ", " << room.y << std::endl;
+            if (room.x < minX) minX = room.x;
+            if (room.y < minY) minY = room.y;
+            if (room.x + room.width > maxX) maxX = room.x + room.width;
+            if (room.y + room.height > maxY) maxY = room.y + room.height;
+        }
+        // std::cout << "minX: " << minX << ", minY: " << minY << ", maxX: " << maxX << ", maxY: " << maxY << std::endl << std::endl;
+        auto gridWidth = (maxX - minX)/GRIDRES;
+        auto gridHeight = (maxY - minY)/GRIDRES;
+        std::cout << "gridWidth: " << gridWidth << std::endl;
+        std::cout << "gridHeight: " << gridHeight << std::endl;
+        std::vector<std::vector<Cell>> grid(gridHeight, std::vector<Cell>(gridWidth, {EMPTY, 0}));
+        int idx = 0;
+        for (auto &&room : this->cells) {
+            if (!isMainRoom[idx++])
+                continue;
+            int startX = (room.x - minX)/GRIDRES;
+            int startY = (room.y - minY)/GRIDRES;
+            std::cout << "startX:" << startX << std::endl;
+            std::cout << "startY:" << startY << std::endl;
+            for (int y = 0; y < room.height / GRIDRES; y += 1) {
+                for (int x = 0; x < room.width / GRIDRES; x += 1) {
+                    grid[y + startY][x + startX] = (Cell){ROOM, idx};
+                }
+            }
+        }
+        // idx = 0;
+        // for (auto &&corr : this->corridors) {
+        //     for (int x = corr.p1.x - minX; x < corr.p2.x - minX; x += GRIDRES) {
+        //         for (int y = corr.p1.y - ((THICKNESS*GRIDRES)/2); y < corr.p1.y + ((THICKNESS*GRIDRES)/2); y += GRIDRES) {
+        //             int gridIdx = (gridWidth*(y/GRIDRES) + (x/GRIDRES));
+        //             if (grid[gridIdx].type != ROOM) grid[gridIdx] = (Cell){CORRIDOR, idx};
+        //         }
+        //     }
+        //     for (int y = corr.p2.x - minX; y < corr.p3.x - minX; y += GRIDRES) {
+        //         for (int x = corr.p2.y - ((THICKNESS*GRIDRES)/2); x < corr.p2.y + ((THICKNESS*GRIDRES)/2); x += GRIDRES) {
+        //             int gridIdx = (gridWidth*(y/GRIDRES) + (x/GRIDRES));
+        //             if (grid[gridIdx].type != ROOM) grid[gridIdx] = (Cell){CORRIDOR, idx};
+        //         }
+        //     }
+        //     idx++;
+        // }
+
+        return {grid, gridWidth, gridHeight};
+    }
 } // namespace rngd

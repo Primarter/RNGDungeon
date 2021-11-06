@@ -7,10 +7,11 @@ namespace rngd
     {
         private:
             GenCellSystem genCellSys;
+            std::string fileName;
             void drawImGui(void);
             void drawGen(void);
         public:
-            Generator(void) = default;
+            Generator(void);
             ~Generator(void) = default;
             void setup(void);
             void update(void);

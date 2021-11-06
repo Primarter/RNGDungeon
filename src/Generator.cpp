@@ -2,6 +2,10 @@
 
 namespace rngd
 {
+    Generator::Generator(void)
+    {
+         this->fileName.resize(15);
+    }
     void Generator::setup(void)
     {
         InitWindow(WIDTH, HEIGHT, "RNGDungeon");
@@ -30,7 +34,25 @@ namespace rngd
     }
 
     void Generator::exportToFile(void) {
-
+        std::cout << this->fileName << std::endl;
+        auto grid = genCellSys.exportGrid();
+        for (auto &&row : grid.cells) {
+            for (auto &&cell : row) {
+                switch (cell.type)
+                {
+                case ROOM:
+                    std::cout << "# ";
+                    break;
+                case CORRIDOR:
+                    std::cout << "¤ ";
+                    break;
+                default:
+                    std::cout << ". ";
+                    break;
+                }
+            }
+            std::cout << std::endl;
+        }
     }
 
     void Generator::draw(void)
@@ -53,6 +75,8 @@ namespace rngd
             this->reset();
         if (ImGui::Button("Export"))
             this->exportToFile();
+        ImGui::Text("Filename for export:");
+        ImGui::InputText("", &fileName[0], fileName.size());
 
         ImGui::End();
     }

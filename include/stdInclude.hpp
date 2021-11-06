@@ -43,6 +43,8 @@
 #define WIDTH 1280
 #define HEIGHT 720
 
+#define THICKNESS 3
+
 #define RANGE_RAND(min, max) (rand() % (max - min) + min)
 
 #ifndef WIN32
@@ -93,9 +95,30 @@ struct Edge {
     Point p1, p2;
 };
 
+/*
+    p1 -> p2 is horizontal
+    p2 -> p3 is vertical
+ */
 struct Corridor {
     Corridor(Edge e);
     Point p1, p2, p3;
+};
+
+enum CellType {
+    EMPTY,
+    ROOM,
+    CORRIDOR
+};
+
+struct Cell {
+    CellType type;
+    int parentId;
+};
+
+struct Grid {
+    std::vector<std::vector<Cell>> cells;
+    int width;
+    int height;
 };
 
 std::vector<Edge> getEdgeVal(std::vector<Point> &points, std::vector<IEdge> iedges);

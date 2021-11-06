@@ -32,5 +32,6 @@ namespace rngd
             bool aabbCollision(Rectangle a, Rectangle b) const;
             Vector2 cellCenter(const Rectangle &cell) const;
             void draw(void) const;
+            Grid exportGrid(void) const;
     };
 } // namespace rngd
