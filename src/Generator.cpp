@@ -33,6 +33,45 @@ namespace rngd
             genCellSys.updateGraph();
     }
 
+    Generator::ExportGrid Generator::getRandomMap() {
+        while (!genCellSys.separated)
+            genCellSys.separate();
+        Grid grid = genCellSys.exportGrid();
+        std::vector<bool> res(grid.width * grid.height, false);
+        int y = 0;
+        for (auto &&row : grid.cells) {
+            int x = 0;
+            for (auto &&cell : row) {
+                switch (cell.type)
+                {
+                case ROOM:
+                    res[y * grid.width + x] = (true);
+                    std::cout << "# ";
+                    break;
+                case CORRIDOR:
+                    res[y * grid.width + x] = (true);
+                    std::cout << "¤ ";
+                    break;
+                default:
+                    res[y * grid.width + x] = (false);
+                    std::cout << ". ";
+                    break;
+                }
+                x++;
+            }
+            std::cout << std::endl;
+            y++;
+        }
+        std::cout << res.size() << std::endl;
+        std::cout << (grid.height * grid.width) << std::endl;
+        for (int i = 0; i < res.size(); i++) {
+            if (i % grid.width == 0)
+                std::cout << std::endl;
+            std::cout << std::string(res[i] ? "# " : ". ");
+        }
+        return (Generator::ExportGrid{res, grid.width, grid.height});
+    }
+
     void Generator::exportToFile(void) {
         std::cout << this->fileName << std::endl;
         auto grid = genCellSys.exportGrid();

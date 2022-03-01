@@ -33,6 +33,7 @@ target_include_directories(imgui PUBLIC ${IMGUI_DIR})
 ##############################
 set(SRC_FILES
     ${PROJECT_ROOT}/src/main.cpp
+    ${PROJECT_ROOT}/src/display.cpp
     ${PROJECT_ROOT}/src/GenCellSystem.cpp
     ${PROJECT_ROOT}/src/Generator.cpp
     ${PROJECT_ROOT}/src/Triangulate.cpp

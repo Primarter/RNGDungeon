@@ -11,6 +11,11 @@ namespace rngd
             void drawImGui(void);
             void drawGen(void);
         public:
+            struct ExportGrid {
+                std::vector<bool> grid;
+                int width;
+                int height;
+            };
             Generator(void);
             ~Generator(void) = default;
             void setup(void);
@@ -19,5 +24,6 @@ namespace rngd
             void reset(void);
             void stop(void);
             void exportToFile(void);
+            ExportGrid getRandomMap(void);
     };
 } // namespace rngd
