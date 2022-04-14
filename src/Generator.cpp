@@ -46,15 +46,16 @@ namespace rngd
                 {
                 case ROOM:
                     res[y * grid.width + x] = (true);
-                    std::cout << "# ";
+                    // std::cout << "# ";
                     break;
                 case CORRIDOR:
                     res[y * grid.width + x] = (true);
-                    std::cout << "¤ ";
+                    // std::cout << "¤ ";
                     break;
                 default:
+                    std::cout << y * grid.width + x << std::endl;
                     res[y * grid.width + x] = (false);
-                    std::cout << ". ";
+                    // std::cout << ". ";
                     break;
                 }
                 x++;

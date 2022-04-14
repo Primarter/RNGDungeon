@@ -146,7 +146,7 @@ namespace rngd
         auto gridWidth = (maxX - minX)/GRIDRES;
         auto gridHeight = (maxY - minY)/GRIDRES;
         std::vector<std::vector<Cell>> grid(gridHeight + THICKNESS, std::vector<Cell>(gridWidth + THICKNESS, {EMPTY, 0}));
-        int idx = 0;
+        int idx = -1;
         for (auto &&room : this->cells) {
             if (!isMainRoom[idx++])
                 continue;

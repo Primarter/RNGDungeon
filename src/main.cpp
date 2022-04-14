@@ -20,20 +20,20 @@ Vector2 randInCircle()
     return {x, y};
 }
 
-// int main(void)
-// {
-//     rngd::Generator generator;
+int main(void)
+{
+    rngd::Generator generator;
 
-//     generator.setup();
+    generator.setup();
 
-//     rlSetLineWidth(3);
+    rlSetLineWidth(3);
 
-//     while (!WindowShouldClose())
-//     {
-//         generator.update();
-//         generator.draw();
-//     }
+    while (!WindowShouldClose())
+    {
+        generator.update();
+        generator.draw();
+    }
 
-//     generator.stop();
-//     return 0;
-// }
+    generator.stop();
+    return 0;
+}

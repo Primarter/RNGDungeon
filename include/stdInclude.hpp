@@ -112,7 +112,7 @@ enum CellType {
 
 struct Cell {
     CellType type;
-    int parentId;
+    int id;
 };
 
 struct Grid {

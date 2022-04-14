@@ -33,7 +33,7 @@ target_include_directories(imgui PUBLIC ${IMGUI_DIR})
 ##############################
 set(SRC_FILES
     ${PROJECT_ROOT}/src/main.cpp
-    ${PROJECT_ROOT}/src/display.cpp
+    # ${PROJECT_ROOT}/src/3DDisplay.cpp
     ${PROJECT_ROOT}/src/GenCellSystem.cpp
     ${PROJECT_ROOT}/src/Generator.cpp
     ${PROJECT_ROOT}/src/Triangulate.cpp
@@ -73,6 +73,57 @@ endif()
 
 target_link_libraries(RNGDungeon imgui)
 target_link_libraries(RNGDungeon raylib)
+
+##############################
+# 3DDungeon executable
+##############################
+set(SRC_FILES
+    # ${PROJECT_ROOT}/src/main.cpp
+    ${PROJECT_ROOT}/src/3DDisplay.cpp
+    ${PROJECT_ROOT}/src/GenCellSystem.cpp
+    ${PROJECT_ROOT}/src/Generator.cpp
+    ${PROJECT_ROOT}/src/Triangulate.cpp
+    ${PROJECT_ROOT}/src/MinimumSpanningTree.cpp
+    ${PROJECT_ROOT}/src/CorridorCreation.cpp
+    ${PROJECT_ROOT}/lib/Lib.cpp
+    ${PROJECT_ROOT}/lib/std/DLLoader.cpp
+    ${PROJECT_ROOT}/lib/std/Exception.cpp
+    ${PROJECT_ROOT}/lib/std/Stopwatch.cpp
+)
+set(RLIMGUI_SRC
+    ${PROJECT_ROOT}/rlImGui/rlImGui.cpp
+)
+
+add_executable(3DDungeon
+    ${SRC_FILES}
+    ${RLIMGUI_SRC}
+)
+target_include_directories(3DDungeon
+    PRIVATE
+        ${PROJECT_ROOT}/include/
+        ${PROJECT_ROOT}/rlImGui/
+        ${IMGUI_DIR}
+)
+
+if (MSVC)
+    target_compile_options(3DDungeon PRIVATE "/ZM" "/Wall" "/std:c++17")
+    set_target_properties(3DDungeon PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "../../"
+    )
+else()
+    target_compile_options(3DDungeon PRIVATE -W -Wall -Wextra -Wno-missing-field-initializers -g3)
+    set_target_properties(3DDungeon PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "../"
+    )
+endif()
+
+target_link_libraries(3DDungeon imgui)
+target_link_libraries(3DDungeon raylib)
+
+##############################
+# raylib fetch
+##############################
+
 if (NOT raylib_FOUND)
     include(FetchContent)
     FetchContent_Declare(raylib URL https://github.com/raysan5/raylib/archive/master.tar.gz)

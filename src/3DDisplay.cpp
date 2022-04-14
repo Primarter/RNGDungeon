@@ -108,14 +108,7 @@ int main(void)
         "resources/shader/wall/wall.vert",
         "resources/shader/wall/wall.frag");
 
-    // MyShader shader_tree(
-    //     "resources/shader/tree/tree.vert",
-    //     "resources/shader/tree/tree.frag",
-    //     "resources/shader/tree/tree.geom");
-
-
     Texture texture = LoadTexture("resources/texel_checker.png");
-    //MyShader shad("", "", nullptr);
 
     // cannot tell what are usefull
     game.shader_material.locs[SHADER_LOC_MATRIX_MODEL] = GetShaderLocation(game.shader_material, "matModel");
@@ -154,7 +147,7 @@ int main(void)
 
     CloseWindow();
 
-    generator.stop();
+    // generator.stop();
 
     return 0;
 }
